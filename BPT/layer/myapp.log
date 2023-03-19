@@ -1,0 +1,6 @@
+SQL injection attempt detected on 2023-03-19 14:43:43: UPDATE
+SQL injection attempt detected on 2023-03-19 20:47:30: UPDATE
+2023-03-19 20:53:32 | IP: ::1 | SQL Injection detected
+2023-03-19 20:54:33 | IP: ::1 | Mesage:  |SQL Injection detected
+2023-03-19 20:55:17 | IP: ::1 | Message: UPDATE |SQL Injection detected
+2023-03-19 21:11:14 | IP: ::1 | Message: admin UPDATE |SQL Injection detected
