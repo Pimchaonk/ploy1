@@ -15,11 +15,11 @@
 		if(file_exists($_FILES["pimage"]["tmp_name"])){
 			copy($_FILES["pimage"]["tmp_name"], '../product_img/'.$pid.'.jpg');
 		}
-		header("Location: /main/product.php");
+		header("Location: ../main/product.php");
 	}
 	elseif(isset($_POST['cancel'])){
-		header("Location: /main/product.php");
+		header("Location: ../main/product.php");
 	} else {
-		header("Location: /main/dashboard.php");	
+		header("Location: ../main/dashboard.php");	
 	}
 ?>

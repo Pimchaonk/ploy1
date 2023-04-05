@@ -24,7 +24,7 @@
 
 		echo $rowcount;
 		if ($rowcount == 1 && ($row['e_id'] != $eid)) {
-			header("Location: /main/edit_employee.php?error=1&eid=" . $eid);
+			header("Location: ../main/edit_employee.php?error=1&eid=" . $eid);
 		} else {
 			if (isset($_POST['password'])) {
 				$q="UPDATE Employee SET e_fname='$fname', e_lname='$lname', e_username='$username', e_password='$password', e_role='$role' where e_id=$eid";
@@ -36,12 +36,12 @@
 			}
 			$mysqli->close();
 	
-			header("Location: /main/employee.php");
+			header("Location: ../main/employee.php");
 		}
 	}
 	elseif(isset($_POST['cancel'])){
-		header("Location: /main/employee.php");
+		header("Location: ../main/employee.php");
 	} else {
-		header("Location: /main/dashboard.php");
+		header("Location: ../main/dashboard.php");
 	}
 ?>

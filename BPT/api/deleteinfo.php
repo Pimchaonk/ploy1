@@ -3,10 +3,10 @@
 	session_start();
 
 	if(!isset($_SESSION["user"])) {
-		header("Location: /authentication/login.html");
+		header("Location: ../authentication/login.html");
 	} else {
 		if ($_SESSION["user"] == "Cashier") {
-			header("Location: /main/dashboard.php");
+			header("Location: ../main/dashboard.php");
 		} else {
 			$pid = $_GET['pid'];
 			$eid = $_GET['eid'];
@@ -19,7 +19,7 @@
 				$mysqli->close();
 				$imgfilename = "../product_img/".$pid.".jpg";
 				unlink($imgfilename);
-				header("Location: /main/product.php");
+				header("Location: ../main/product.php");
 			}
 			elseif (isset($eid)) {
 				$q="DELETE FROM Employee where e_id=$eid";
@@ -27,7 +27,7 @@
 						echo "DELETE failed. Error: ".$mysqli->error ;
 				}
 				$mysqli->close();
-				header("Location: /main/employee.php");
+				header("Location: ../main/employee.php");
 			}
 		}
 	}

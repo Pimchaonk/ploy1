@@ -38,7 +38,7 @@ if (!isset($_SESSION["user"])) {
             <a class="nav-link" href="../main/sale.php">Make Sale</a>
           </li>
           <li class="nav-item mx-2">
-              <a class="nav-link" href="/main/order.php">Orders</a>
+              <a class="nav-link" href="../main/order.php">Orders</a>
             </li>
           <li class="nav-item dropdown mx-2">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

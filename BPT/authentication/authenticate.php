@@ -37,6 +37,6 @@ if (isset($_POST['sub'])) {
         }
     }
 } else {
-    header("Location: /authentication/login.php");
+    header("Location: ../authentication/login.php");
 }
 ?>

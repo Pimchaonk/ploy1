@@ -14,8 +14,8 @@
 
 		move_uploaded_file($_FILES["pimage"]["tmp_name"], '../product_img/'.$pid.'.jpg');
 
-        header("Location: /main/product.php");
+        header("Location: ../main/product.php");
 	} else {
-		header("Location: /main/dashboard.php");
+		header("Location: ../main/dashboard.php");
 	}
 ?>

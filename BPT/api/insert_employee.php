@@ -16,7 +16,7 @@ if (isset($_POST['sub'])) {
 	$result = $mysqli->query($q);
 	$rowcount = $result->num_rows;
 	if ($rowcount == 1) {
-		header("Location: /main/add_employee.php?error=1");
+		header("Location: ../main/add_employee.php?error=1");
 	} else {
 		$q1 = "INSERT INTO Employee(e_id, e_fname, e_lname, e_username, e_password, e_role) VALUES ('$eid', '$fname', '$lname', '$username', '$password', '$role');";
 		$result1 = $mysqli->query($q1);
@@ -24,9 +24,9 @@ if (isset($_POST['sub'])) {
 			echo "INSERT failed. Error: " . $mysqli->error;
 			return false;
 		}
-		header("Location: /main/employee.php");
+		header("Location: ../main/employee.php");
 	}
 } else {
-	header("Location: /main/dashboard.php");
+	header("Location: ../main/dashboard.php");
 }
 ?>
