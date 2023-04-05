@@ -2,10 +2,10 @@
   session_start();
 
   if(!isset($_SESSION["user"])) {
-    header("Location: /authentication/login.php");
+    header("Location: ../authentication/login.php");
   } else {
     if ($_SESSION["user"] == "Cashier") {
-      header("Location: /main/dashboard.php");
+      header("Location: ../main/dashboard.php");
     }
   }
 ?>
@@ -29,13 +29,13 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.1/font/bootstrap-icons.css"
     />
-    <link rel="stylesheet" href="/main/css/style_product.css" />
+    <link rel="stylesheet" href="../main/css/style_product.css" />
   </head>
 
   <body style="height: 100vh; width: 100vw">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand ms-3 me-5" href="/main/dashboard.php">Point of Sale</a>
+        <a class="navbar-brand ms-3 me-5" href="../main/dashboard.php">Point of Sale</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -50,13 +50,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item mx-2">
-              <a class="nav-link" href="/main/dashboard.php">Home</a>
+              <a class="nav-link" href="../main/dashboard.php">Home</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="/main/sale.php">Make Sale</a>
+              <a class="nav-link" href="../main/sale.php">Make Sale</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="/main/order.php">Orders</a>
+              <a class="nav-link" href="../main/order.php">Orders</a>
             </li>
             <li class="nav-item dropdown mx-2">
               <a
@@ -69,10 +69,10 @@
                 Product Management
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/main/product.php">Product List</a></li>
+                <li><a class="dropdown-item" href="../main/product.php">Product List</a></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
-                  <a class="dropdown-item" href="/main/add_product.php"
+                  <a class="dropdown-item" href="../main/add_product.php"
                     >Add Product</a
                   >
                 </li>
@@ -92,14 +92,14 @@
                 <li><a class="dropdown-item" href="#">Employee List</a></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
-                  <a class="dropdown-item" href="/main/add_employee.php"
+                  <a class="dropdown-item" href="../main/add_employee.php"
                     >Add Employee</a
                   >
                 </li>
               </ul>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="/authentication/logout.php">Logout</a>
+              <a class="nav-link" href="../authentication/logout.php">Logout</a>
             </li>
           </ul>
           <span class="navbar-text me-3"> Logged in as: </span>
@@ -149,7 +149,7 @@
                     }
                     ?>
                     <td class="button-cell">
-                    <a href='edit_employee.php?eid=<?=$row['e_id']?>'> <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
+                    <a href='../edit_employee.php?eid=<?=$row['e_id']?>'> <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
                     <a href='../api/deleteinfo.php?eid=<?=$row['e_id']?>'> <button type="button" class="btn btn-sm btn-outline-danger me-3">Delete</button></a>
                     </td>
                   </tr>                          

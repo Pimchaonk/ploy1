@@ -2,13 +2,13 @@
 session_start();
 
 if (!isset($_SESSION["user"])) {
-  header("Location: /authentication/login.php");
+  header("Location: ../authentication/login.php");
 }
 
 require_once('../connect.php');
 
 if (!isset($_GET['o_id'])) {
-  header("Location: /main/dashboard.php");
+  header("Location: ../main/dashboard.php");
 }
 ?>
 
@@ -41,23 +41,23 @@ if (!isset($_GET['o_id'])) {
 <body style="height: 100vh;">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand ms-3 me-5" href="/main/dashboard.php">Point of Sale</a>
+      <a class="navbar-brand ms-3 me-5" href="../main/dashboard.php">Point of Sale</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item mx-2">
-            <a class="nav-link" href="/main/dashboard.php">Home</a>
+            <a class="nav-link" href="../main/dashboard.php">Home</a>
           </li>
           <li class="nav-item mx-2">
-            <a class="nav-link" href="/main/sale.php">Make Sale</a>
+            <a class="nav-link" href="../main/sale.php">Make Sale</a>
           </li>
           <?php
           if ($_SESSION["user"] == "Admin") {
             echo
             '<li class="nav-item mx-2">
-              <a class="nav-link" href="/main/order.php">Orders</a>
+              <a class="nav-link" href="../main/order.php">Orders</a>
             </li>
             
             <li class="nav-item dropdown mx-2">
@@ -72,13 +72,13 @@ if (!isset($_GET['o_id'])) {
               </a>
               <ul class="dropdown-menu">
                 <li>
-                  <a class="dropdown-item" href="/main/product.php"
+                  <a class="dropdown-item" href="../main/product.php"
                     >Product List</a
                   >
                 </li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
-                  <a class="dropdown-item" href="/main/add_product.php"
+                  <a class="dropdown-item" href="../main/add_product.php"
                     >Add Product</a
                   >
                 </li>
@@ -96,13 +96,13 @@ if (!isset($_GET['o_id'])) {
               </a>
               <ul class="dropdown-menu">
                 <li>
-                  <a class="dropdown-item" href="/main/employee.php"
+                  <a class="dropdown-item" href="../main/employee.php"
                     >Employee List</a
                   >
                 </li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
-                  <a class="dropdown-item" href="/main/add_employee.php"
+                  <a class="dropdown-item" href="../main/add_employee.php"
                     >Add Employee</a
                   >
                 </li>
@@ -111,7 +111,7 @@ if (!isset($_GET['o_id'])) {
           }
           ?>
           <li class="nav-item mx-2">
-            <a class="nav-link" href="/authentication/logout.php">Logout</a>
+            <a class="nav-link" href="../authentication/logout.php">Logout</a>
           </li>
         </ul>
         <span class="navbar-text me-3"> Logged in as: </span>

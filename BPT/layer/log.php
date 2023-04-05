@@ -1,7 +1,7 @@
     <?php
     
     // Set the location and name of your log file
-    $log_file = 'D:\BPT\layer\myapp.log';
+    $log_file = '..\layer\myapp.log';
 
     // Get the IP address and timestamp of the user
     $ip_address = $_SERVER['REMOTE_ADDR'];

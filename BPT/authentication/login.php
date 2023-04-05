@@ -2,7 +2,7 @@
 session_start();
 
 if (isset($_SESSION["user"])) {
-  header("Location: /main/dashboard.php");
+  header("Location: ../main/dashboard.php");
 }
 
 ?>

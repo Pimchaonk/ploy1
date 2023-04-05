@@ -31,9 +31,9 @@ if (isset($_POST['sub'])) {
             $_SESSION["fname"] = $row2['e_fname'];
             $_SESSION["lname"] = $row2['e_lname'];
             $_SESSION["e_id"] = $row2['e_id'];
-            header("Location: /main/dashboard.php");
+            header("Location: ../main/dashboard.php");
         } else {
-            header("Location: /authentication/login.php?error=1");
+            header("Location: ../authentication/login.php?error=1");
         }
     }
 } else {

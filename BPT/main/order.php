@@ -2,10 +2,10 @@
   session_start();
 
   if(!isset($_SESSION["user"])) {
-    header("Location: /authentication/login.php");
+    header("Location: ../authentication/login.php");
   } else {
     if ($_SESSION["user"] == "Cashier") {
-      header("Location: /main/dashboard.php");
+      header("Location: ../main/dashboard.php");
     }
   }
 ?>
@@ -50,13 +50,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item mx-2">
-              <a class="nav-link" href="/main/dashboard.php">Home</a>
+              <a class="nav-link" href="../main/dashboard.php">Home</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="/main/sale.php">Make Sale</a>
+              <a class="nav-link" href="../main/sale.php">Make Sale</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link active" href="/main/order.php">Orders</a>
+              <a class="nav-link active" href="../main/order.php">Orders</a>
             </li>
             <li class="nav-item dropdown mx-2">
               <a
@@ -69,10 +69,10 @@
                 Product Management
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/main/product.php">Product List</a></li>
+                <li><a class="dropdown-item" href="../main/product.php">Product List</a></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
-                  <a class="dropdown-item" href="/main/add_product.php"
+                  <a class="dropdown-item" href="../main/add_product.php"
                     >Add Product</a
                   >
                 </li>
@@ -89,17 +89,17 @@
                 Employee Management
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/main/employee.php">Employee List</a></li>
+                <li><a class="dropdown-item" href="../main/employee.php">Employee List</a></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li>
-                  <a class="dropdown-item" href="/main/add_employee.php"
+                  <a class="dropdown-item" href="../main/add_employee.php"
                     >Add Employee</a
                   >
                 </li>
               </ul>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link" href="/authentication/logout.php">Logout</a>
+              <a class="nav-link" href="../authentication/logout.php">Logout</a>
             </li>
           </ul>
           <span class="navbar-text me-3"> Logged in as: </span>
@@ -170,7 +170,7 @@
                 $mysqldate = date('d M Y', $phpdate);
 
                 echo "<td>" . $mysqldate . "</td>";
-                echo "<td><a href=\"order_confirmation.php?o_id=" . $row2['o_id'] . "\" class=\"btn btn-sm btn-outline-primary\">Details</a></td>";
+                echo "<td><a href=..\"order_confirmation.php?o_id=" . $row2['o_id'] . "\" class=\"btn btn-sm btn-outline-primary\">Details</a></td>";
                 echo "</tr>";
               }
               ?>
