@@ -3,7 +3,7 @@
 
 session_start();
 require_once('../connect.php');
-require_once('../layer/regular-based-detection.php');
+require_once('../layer/detect-sqli.php');
 
 if (isset($_POST['sub'])) {
     $username = $_POST['username'];
