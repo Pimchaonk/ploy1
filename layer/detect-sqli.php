@@ -1,7 +1,7 @@
 <?php 
 // D:\BPT\layer\detect-sqli.php
 require_once('../connect.php');
-require_once('../layer/log-sqli.php');
+require_once('log-sqli.php');
 //require_once('D:\BPT\layer\log.php');
 function detect_sqli($string)
 {

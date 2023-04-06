@@ -15,7 +15,7 @@ if (isset($_POST['sub'])) {
 
     if((detect_sqli($username) || detect_sqli($pass))== true)
     {
-        header("Location: ../authentication/login.php?error=1");
+        header("Location: login.php?error=1");
     }
 
     $password = hash('sha256', $pass);
@@ -40,10 +40,10 @@ if (isset($_POST['sub'])) {
             $_SESSION["e_id"] = $row2['e_id'];
             header("Location: ../main/dashboard.php");
         } else {
-            header("Location: ../authentication/login.php?error=1");
+            header("Location: login.php?error=1");
         }
     }
 } else {
-    header("Location: ../authentication/login.php");
+    header("Location: login.php");
 }
 ?>
