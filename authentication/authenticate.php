@@ -6,12 +6,19 @@ require_once('../connect.php');
 require_once('../layer/detect-sqli.php');
 
 if (isset($_POST['sub'])) {
-    $username = $_POST['username'];
-    $password = hash('sha256', $_POST['password']);
+   
 
-    // detect SQLi
-    detect_sqli($username);
-    detect_sqli($password);
+    
+    $username = $_POST['username'];
+    $pass = $_POST['password'];
+
+
+    if((detect_sqli($username) || detect_sqli($pass))== true)
+    {
+        header("Location: /authentication/login.php?error=1");
+    }
+
+    $password = hash('sha256', $pass);
 
     $query = "SELECT COUNT(*) as c FROM Employee WHERE e_password = '$password' and e_username = '$username';";
 
