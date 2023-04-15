@@ -10,7 +10,7 @@ if (isset($_POST['sub'])) {
 
     
     $username = $_POST['username'];
-    $pass = $_POST['password'];
+    $password = $_POST['password'];
 
 
     if(whitelist($username)==true)
