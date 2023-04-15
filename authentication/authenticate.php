@@ -17,33 +17,42 @@ if (isset($_POST['sub'])) {
     {
             header("Location: /authentication/login.php?error=1");
     }
+    
+    // Hash the password using SHA-256 algorithm
+    $password_hashed = hash('sha256', $password);
 
-    $password = hash('sha256', $pass);
+    // Prepare and execute the SELECT statement using prepared statements
+    $stmt = $mysqli->prepare("SELECT e_id, e_fname, e_lname, e_role FROM Employee WHERE e_password = ? AND e_username = ?");
+    $stmt->bind_param("ss", $password_hashed, $username);
+    $stmt->execute();
+    $stmt->store_result();
 
-    $query = "SELECT COUNT(*) as c FROM Employee WHERE e_password = '$password' and e_username = '$username';";
+    // Check if the SELECT statement returned exactly one row
+    if ($stmt->num_rows == 1) {
+        $stmt->bind_result($e_id, $e_fname, $e_lname, $e_role);
+        $stmt->fetch();
 
-    $result = $mysqli->query($query);
-
-    while($row = $result->fetch_array()) {
-        if($row['c'] == 1) {
-            $query2 = "SELECT e_id, e_fname, e_lname, e_role FROM Employee WHERE e_password = '$password' and e_username = '$username';";
-
-            $result2 = $mysqli->query($query2);
-            $row2 = $result2->fetch_array();
-            if ($row2['e_role'] == 'Admin') {
-                $_SESSION["user"] = "Admin";
-            } elseif ($row2['e_role'] == 'Cashier') {
-                $_SESSION["user"] = "Cashier";
-            }
-            $_SESSION["fname"] = $row2['e_fname'];
-            $_SESSION["lname"] = $row2['e_lname'];
-            $_SESSION["e_id"] = $row2['e_id'];
-            header("Location: ../main/dashboard.php");
-        } else {
-            header("Location: ../authentication/login.php?error=1");
+        // Set session variables based on user role
+        if ($e_role == 'Admin') {
+            $_SESSION["user"] = "Admin";
+        } elseif ($e_role == 'Cashier') {
+            $_SESSION["user"] = "Cashier";
         }
+
+        // Set session variables for first name, last name, and employee ID
+        $_SESSION["fname"] = $e_fname;
+        $_SESSION["lname"] = $e_lname;
+        $_SESSION["e_id"] = $e_id;
+
+        // Redirect to dashboard page
+        header("Location: /main/dashboard.php");
+    } else {
+        // Redirect back to login page with error message
+        header("Location: /authentication/login.php?error=1");
     }
 } else {
-    header("Location: ../authentication/login.php");
+    // Redirect to login page if the form was not submitted
+    header("Location: /authentication/login.php");
 }
 ?>
+
