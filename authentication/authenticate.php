@@ -13,9 +13,9 @@ if (isset($_POST['sub'])) {
     $pass = $_POST['password'];
 
 
-    if((detect_sqli($username) || detect_sqli($pass))== true)
+    if(whitelist($username)==true)
     {
-        header("Location: /authentication/login.php?error=1");
+            header("Location: /authentication/login.php?error=1");
     }
 
     $password = hash('sha256', $pass);
