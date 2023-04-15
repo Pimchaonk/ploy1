@@ -1,8 +1,32 @@
 <?php 
 // D:\BPT\layer\detect-sqli.php
 require_once('../connect.php');
-require_once('../layer/log-sqli.php');
-//require_once('D:\BPT\layer\log.php');
+require_once('log-sqli.php');
+function whitelist($string){
+    // Define the whitelist of allowed characters for the username
+  //$username_whitelist = '/^[a-zA-Z0-9 .!?\-_@#]+$/';
+  $username_whitelist = '/^[a-zA-Z0-9 .]+$/';
+    // Get the user input for the username field
+    //$username = $_POST['username'];
+
+    // Validate the username input against the whitelist
+  if (preg_match($username_whitelist, $string)==true) {
+    // The username input is valid
+    // Proceed with authentication and database queries
+    //log_sqli($string);
+    return false;
+
+  } 
+  else {
+    // The username input is invalid
+    // Display an error message or log the attempted attack
+    //log_sqli($string);
+    if (detect_sqli($string)){
+       //log_sqli($string);
+    }
+    return true;
+  }
+}
 function detect_sqli($string)
 {
     $input = preg_replace('/\s+/', '', $string);
@@ -20,9 +44,10 @@ function detect_sqli($string)
 
     "/=/",
 
-    '/^\s*(--|#|\/\*)/',
-    
-    "/;+/",);
+    //'/^\s*(--|#|\/\*)/',
+    "/.*(--|#|\/\*).*/"
+    //"/;+/"
+    );
 
     $sqliRegex2 = '~
     ( # start of SQL injection pattern group
@@ -63,7 +88,7 @@ function detect_sqli($string)
 
   foreach ($sqliRegex1 as $pattern) {
     if (preg_match($pattern, $input)) {
-        log_sqli($string);
+        //log_sqli($string);
         return true;
     }
   }
@@ -73,12 +98,11 @@ function detect_sqli($string)
     //$logMessage = "Potential SQL injection attempt detected: $inputString";
     //file_put_contents("sql_injection_log.txt", $logMessage . PHP_EOL, FILE_APPEND);
     // take appropriate action (e.g. reject the request, redirect to an error page, etc.)
-    log_sqli($input);
+    //log_sqli($input);
     return true;
   }
   // if input string doesn't match either set of regex patterns, the input is considered safe
   else {
-    //else_sqli($input);
     // input is safe to use in SQL query
     // continue with normal processing (e.g. execute the query, render the page, etc.)
     return false;
@@ -92,7 +116,9 @@ if (preg_match($patterns, $input)) {
   // input is safe to use
   return false;
 }*/
-}    /***                  
+}
+
+/***                  
     if (preg_match($pattern, $string)) {
         // SQLi detected
         log_sqli($string);
