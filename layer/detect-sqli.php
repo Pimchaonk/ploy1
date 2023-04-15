@@ -22,7 +22,7 @@ function whitelist($string){
     // Display an error message or log the attempted attack
     //log_sqli($string);
     if (detect_sqli($string)){
-       //log_sqli($string);
+       log_sqli($string);
     }
     return true;
   }
