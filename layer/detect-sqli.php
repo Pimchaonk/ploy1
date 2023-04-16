@@ -1,55 +1,12 @@
 <?php 
-// D:\BPT\layer\detect-sqli.php
 require_once('../connect.php');
 require_once('log-sqli.php');
-function whitelist($string){
-    // Define the whitelist of allowed characters for the username
-  //$username_whitelist = '/^[a-zA-Z0-9 .!?\-_@#]+$/';
-  $username_whitelist = '/^[a-zA-Z0-9 .]+$/';
-    // Get the user input for the username field
-    //$username = $_POST['username'];
-
-    // Validate the username input against the whitelist
-  if (preg_match($username_whitelist, $string)==true) {
-    // The username input is valid
-    // Proceed with authentication and database queries
-    //log_sqli($string);
-    return false;
-
-  } 
-  else {
-    // The username input is invalid
-    // Display an error message or log the attempted attack
-    //log_sqli($string);
-    if (detect_sqli($string)){
-       log_sqli($string);
-    }
-    return true;
-  }
-}
 function detect_sqli($string)
 {
     $input = preg_replace('/\s+/', '', $string);
-
-    //detect single qutoe
-    $sqliRegex1= array (     
-      
-    "/'/",
-        
-    // detect double quote
-    '/"/',
-
-    // detect long comment
-    '/\/\*/',
-
-    "/=/",
-
-    //'/^\s*(--|#|\/\*)/',
-    "/.*(--|#|\/\*).*/"
-    //"/;+/"
-    );
-
-    $sqliRegex2 = '~
+ 
+    
+    $patterns = '~
     ( # start of SQL injection pattern group
       \s* # match any leading whitespace
       ( # start of SQL injection type group
@@ -79,60 +36,20 @@ function detect_sqli($string)
           |(\bunion\b\s+(?:all\s+)?\bselect\b) # pattern for UNION-based attacks
           |(\b(?:select|update)\b.+?\b(?:from|set)\b\s*\(?\s*(?:select\b|\(?\s*select)) # pattern for error-based attacks
           |(\b(?:sleep|benchmark)\b\s*\() # pattern for time-based attacks
-          |/(;WAITFOR\s+DELAY\s+\'\\\d{1,2}:\\\d{1,2}:\\\d{1,2}\'\s*;\s*--)/
         ) # end of sub-patterns group
         (\s*[\;]\s*)* # match any trailing semicolon and whitespace
       ) # end of SQL injection type group
     ) # end of SQL injection pattern group
   ~ix';
 
-  foreach ($sqliRegex1 as $pattern) {
-    if (preg_match($pattern, $input)) {
-        //log_sqli($string);
-        return true;
-    }
-  }
-  // if input string doesn't match the first set of regex patterns, check the second set
-  if (preg_match($sqliRegex2, $input)) {
-    // SQL injection attempt detected, log the attempt and take appropriate action
-    //$logMessage = "Potential SQL injection attempt detected: $inputString";
-    //file_put_contents("sql_injection_log.txt", $logMessage . PHP_EOL, FILE_APPEND);
-    // take appropriate action (e.g. reject the request, redirect to an error page, etc.)
-    //log_sqli($input);
-    return true;
-  }
-  // if input string doesn't match either set of regex patterns, the input is considered safe
-  else {
-    // input is safe to use in SQL query
-    // continue with normal processing (e.g. execute the query, render the page, etc.)
-    return false;
-  }
-/*
+
+
 if (preg_match($patterns, $input)) {
-  // SQL injection detected, handle the error
   log_sqli($input);
   return true;
 } else {
-  // input is safe to use
+
   return false;
-}*/
 }
-
-/***                  
-    if (preg_match($pattern, $string)) {
-        // SQLi detected
-        log_sqli($string);
-        return true;
-    }
-
-
-    return false;
-} ***/
-
-
-
-
+} 
 ?>
-
-
-
