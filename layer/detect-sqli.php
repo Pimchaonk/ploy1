@@ -1,7 +1,7 @@
 <?php 
 require_once('../connect.php');
 require_once('../layer/log-sqli.php');
-function detect_sqli2($string)
+function detect_sqli($string)
 {
     $input = preg_replace('/\s+/', '', $string);
  
