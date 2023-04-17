@@ -71,7 +71,7 @@ function detect_sqli($string)
   }
   // if input string doesn't match the first set of regex patterns, check the second set
   if (preg_match($sqliRegex2, $string)) {
-    log_sqli($input);
+    log_sqli($string);
     return true;
   }
   
