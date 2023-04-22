@@ -13,7 +13,7 @@ if (isset($_POST['sub'])) {
     $password = $_POST['password'];
 
 
-    detect_sqli($username);
+    //detect_sqli($username);
     
     // Hash the password using SHA-256 algorithm
     $password_hashed = hash('sha256', $password);
