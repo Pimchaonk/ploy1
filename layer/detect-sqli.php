@@ -79,7 +79,6 @@ function detect_sqli($string)
         log_sqli($string);
         return true;
     } else {
-        love($string);
         return false;
     }
 }
