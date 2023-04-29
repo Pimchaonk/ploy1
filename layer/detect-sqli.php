@@ -1,82 +1,88 @@
 <?php 
 // D:\BPT\layer\detect-sqli.php
 require_once('../connect.php');
-require_once('log-sqli.php');
+require_once('../layer/log-sqli.php');
 function detect_sqli($string)
 {
-    $input = preg_replace('/\s+/', '', $string);
-    //$input =  ;
-    //detect single qutoe
-    $sqliRegex1= array (
-           
-      
-    "/'/",
-        
-    // detect double quote
-    '/"/',
+    // Set a score threshold to reduce false positives
+    $scoreThreshold = 3;
+    $score = 0;
 
-    // detect long comment
-    '/\/\*/',
-
-    "/=/",
-
-    '/^\s*(--|#|\/\*)/',
-    
-    //"/;+/"
-    
+    // Layer 1: Check for commonly used SQL injection characters
+    $regex1 = array(
+        "/'/",
+        '/"/',
+        '/^\s*(--|#)/',
     );
-    $patterns = '~
-    ( # start of SQL injection pattern group
-      \s* # match any leading whitespace
-      ( # start of SQL injection type group
-        [\0\b\'\"\n\r\t\%\_\\\\]* # match any escape characters
-        \s* # match any leading whitespace
-        ( # start of sub-patterns group
-          (select\s*.+\s*from\s*.+) # pattern for SELECT statements
-          |(insert\s*.+\s*into\s*.+) # pattern for INSERT statements
-          |(update\s*.+\s*set\s*.+) # pattern for UPDATE statements
-          |(delete\s*.+\s*from\s*.+) # pattern for DELETE statements
-          |(drop\s*.+) # pattern for DROP statements
-          |(truncate\s*.+) # pattern for TRUNCATE statements
-          |(alter\s*.+) # pattern for ALTER statements
-          |(exec\s*.+) # pattern for EXEC statements
-          |(\s*(all|any|not|and|between|in|like|or|some|contains|containsall|containskey)\s*.+[\=\>\<=\!\~]+.+) # pattern for conditional expressions
-          |(let\s+.+[\=]\s*.*) # pattern for LET statements
-          |(begin\s*.*\s*end) # pattern for BEGIN/END statements
-          |(\s*[\/\*]+\s*.*\s*[\*\/]+) # pattern for comments
-          |(\s*(\-\-)\s*.*\s+) # pattern for single-line comments
-          |(\s*(contains|containsall|containskey)\s+.*) # pattern for CONTAINS expressions
-          |(xp_cmdshell\s) # pattern for xp_cmdshell
-          |(sp_executesql\s) # pattern for sp_executesql
-          |(create\s.+\sprocedure\s) # pattern for CREATE PROCEDURE statements
-          |(declare\s.+\s@\w+\s) # pattern for DECLARE statements
-          |(xp_regwrite\s) # pattern for xp_regwrite
-          |(xp_regdelete\s) # pattern for xp_regdelete
-          |(\bunion\b\s+(?:all\s+)?\bselect\b) # pattern for UNION-based attacks
-          |(\b(?:select|update)\b.+?\b(?:from|set)\b\s*\(?\s*(?:select\b|\(?\s*select)) # pattern for error-based attacks
-          |(\b(?:sleep|benchmark)\b\s*\() # pattern for time-based attacks
-        ) # end of sub-patterns group
-        (\s*[\;]\s*)* # match any trailing semicolon and whitespace
-      ) # end of SQL injection type group
-    ) # end of SQL injection pattern group
-  ~ix';
-  foreach ($sqliRegex1 as $pattern) {
-    if (preg_match($pattern, $string)) {
+
+    foreach ($regex1 as $pattern) {
+        if (preg_match($pattern, $string)) {
+            $score++;
+        }
+    }
+
+    // Layer 2: Check for common SQL injection keywords and operators
+    $regex2 = array(
+        '/\b(alter|select|union|insert|update|delete|drop|truncate|exec|create|declare)\b/i',
+        '/\b(from|into|set|where|and|or|not|like|in|between|is)\b/i',
+        '/[\=\>\<]/',
+        '/[\%|\_]/',
+    );
+
+    foreach ($regex2 as $pattern) {
+        if (preg_match($pattern, $string)) {
+            $score++;
+        }
+    }
+
+    // Layer 3: Check for special SQL injection payloads and techniques
+    $regex3 = array(
+        '/\s*(\ball\b|\bany\b|\bnot\b|\band\b|\bbetween\b|\bin\b|\blike\b|\bor\b|\bsome\b|\bcontains\b|\bcontainsall\b|\bcontainskey\b)\s*.+[\=\>\<]+.+/i',
+        '/\s*(\blet\b|\bdeclare\b|\bbegin\b|\bend\b|\bif\b|\belse\b|\bwhile\b|\bfor\b|\bcase\b|\bswitch\b|\binto\b|\bdelay\b)\s*.+[\=\>\<]+.+/i',
+        '/\b(select|update).+?(from|set)/i',
+        '/\b(?:sleep|benchmark)\b\s*\(/i',
+        '/[\)\(\;\,\|\&\-\+]/',
+    );
+
+    foreach ($regex3 as $pattern) {
+        if (preg_match($pattern, $string)) {
+            $score ++;
+        }
+    }
+
+    // Layer 4: Check for hex encoding and URL encoding
+    $regex4 = array(
+        '/(?:%[0-9a-f]{2})+/i',
+        '/0x[0-9a-f]+/i',
+    );
+
+    foreach ($regex4 as $pattern) {
+        if (preg_match($pattern, $string)) {
+            $score++;
+        }
+    }
+
+    // Layer 5: Check for escape characters and comment characters
+    $regex5 = array(
+        '/\\\\/',
+        '/#\+/',
+        '/;/',
+    );
+
+    foreach ($regex5 as $pattern) {
+        if (preg_match($pattern, $string)) {
+            $score++;
+        }
+    }
+
+    if ($score >= $scoreThreshold) {
         log_sqli($string);
         return true;
+    } else {
+        return false;
     }
-  }
-  // if input string doesn't match the first set of regex patterns, check the second set
-  if (preg_match($sqliRegex2, $string)) {
-    log_sqli($input);
-    return true;
-  }
-  
-  else {
-    // input is safe to use in SQL query
-    return false;
-  }
 }
-
-
 ?>
+
+
+
