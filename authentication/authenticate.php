@@ -6,14 +6,12 @@ require_once('../connect.php');
 require_once('../layer/detect-sqli.php');
 
 if (isset($_POST['sub'])) {
-       
+
     $username = $_POST['username'];
     $password = $_POST['password'];
 
 
-    //whitelist($username);
     detect_sqli($username);
-    //detect_sqli2($username);
     
     // Hash the password using SHA-256 algorithm
     $password_hashed = hash('sha256', $password);
@@ -42,13 +40,14 @@ if (isset($_POST['sub'])) {
         $_SESSION["e_id"] = $e_id;
 
         // Redirect to dashboard page
-        header("Location: /main/dashboard.php");
+        header("Location: ../main/dashboard.php");
     } else {
         // Redirect back to login page with error message
-        header("Location: /authentication/login.php?error=1");
+        header("Location: login.php?error=1");
     }
 } else {
     // Redirect to login page if the form was not submitted
-    header("Location: /authentication/login.php");
+    header("Location: login.php");
 }
 ?>
+
