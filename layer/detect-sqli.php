@@ -81,7 +81,6 @@ function detect_sqli($string)
         //log_sqli_mongo($string);
         return true;
     } else {
-        header("Location: /authentication/login.php?error=1");
         return false;
     }
 }
