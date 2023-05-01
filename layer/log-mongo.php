@@ -10,11 +10,12 @@
     
         $ip = $_SERVER['REMOTE_ADDR'];    
         $date = date('Y-m-d H:i:s');
+        $iddate = date('His');
         
         // Add the log to MongoDB collection
         $collection = $mongoclient->bpt_db->bpt_log;
         $log = [
-            'bpt_id' => 'real',
+            'bpt_id' => $ip+$iddate,
             'date' => $date,
             'ip' => $ip,
             'message' => $string,
