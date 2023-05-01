@@ -7,6 +7,6 @@
 3.2 For cloud enter https://bpt-testnet.azurewebsites.net/authentication/login.php
 This will lead you to the login page
 4. You can try SQLi in the login page
-5. The username: Admin Password: Admin
+5. The login info for the website is as follow - username: Admin Password: Admin
 6. Use our datasets via OWASP ZAP or sqlmap to test the detection function.
 
