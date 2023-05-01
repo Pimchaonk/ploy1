@@ -78,7 +78,7 @@ function detect_sqli($string)
     }
 
     if ($score >= $scoreThreshold) {
-        //log_sqli_mongo($string);
+        //log_sqli($string);
         return true;
     } else {
         return false;
