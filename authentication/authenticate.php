@@ -42,14 +42,14 @@ if (isset($_POST['sub'])) {
         $_SESSION["e_id"] = $e_id;
 
         // Redirect to dashboard page
-        header("Location: /main/dashboard.php");
+        header("Location: ../main/dashboard.php");
     } else {
         // Redirect back to login page with error message
-        header("Location: /authentication/login.php?error=1");
+        header("Location: ../authentication/login.php?error=1");
     }
 } else {
     // Redirect to login page if the form was not submitted
-    header("Location: /authentication/login.php");
+    header("Location: ../authentication/login.php");
 }
 ?>
 
