@@ -14,6 +14,7 @@
         // Add the log to MongoDB collection
         $collection = $mongoclient->bpt_db->bpt_log;
         $log = [
+            'bpt_id' => 'real',
             'date' => $date,
             'ip' => $ip,
             'message' => $string,
