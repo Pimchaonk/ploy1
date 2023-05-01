@@ -1,7 +1,6 @@
 <?php
 
     require_once("../connect_mongo.php");
-    include("../connect_mongo.php");
 
     function log_sqli_mongo($string)
     {   
