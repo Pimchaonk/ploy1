@@ -3,9 +3,10 @@
     require_once("../connect_mongo.php");
     include("../connect_mongo.php");
 
-    function log_sqli($string, $mongoclient) 
+    function log_sqli_mongo($string)
     {   
         date_default_timezone_set('Asia/Bangkok');
+        global $mongoclient;
     
         $ip = $_SERVER['REMOTE_ADDR'];    
         $date = date('Y-m-d H:i:s');

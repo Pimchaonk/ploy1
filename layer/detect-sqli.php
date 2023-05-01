@@ -1,7 +1,8 @@
 <?php 
 // D:\BPT\layer\detect-sqli.php
 require_once('../connect.php');
-require_once('../layer/log-sqli.php');
+require_once('../layer/log-mongo.php');
+
 function detect_sqli($string)
 {
     // Set a score threshold to reduce false positives
@@ -76,7 +77,7 @@ function detect_sqli($string)
     }
 
     if ($score >= $scoreThreshold) {
-        log_sqli($string);
+        log_sqli_mongo($string);
         return true;
     } else {
         return false;
