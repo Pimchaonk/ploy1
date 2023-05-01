@@ -45,11 +45,11 @@ if (isset($_POST['sub'])) {
         header("Location: ../main/dashboard.php");
     } else {
         // Redirect back to login page with error message
-        header("Location: ../authentication/login.php?error=1");
+        header("Location: login.php?error=1");
     }
 } else {
     // Redirect to login page if the form was not submitted
-    header("Location: ../authentication/login.php");
+    header("Location: login.php");
 }
 ?>
 
